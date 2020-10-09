@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         command: ["cloudflared", "tunnel"]
         args:
-        - --url=http://rook-ceph-rgw-my-store:80
+        - --url=http://10.96.190.242:80
         - --hostname=rgw.sfxworks.net
         - --origincert=/etc/cloudflared/cert.pem
         - --no-autoupdate

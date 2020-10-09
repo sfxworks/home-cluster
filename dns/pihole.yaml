@@ -14,8 +14,8 @@ spec:
     version: 1.7.17
     forceUpgrade: false
   values:
-    DNS1: 1.1.1.2
-    DNS2: 1.0.0.2
+    DNS1: 10.96.0.10
+    #DNS2: 1.0.0.2
     persistentVolumeClaim:
       enabled: true
       storageClass: rook-ceph-block

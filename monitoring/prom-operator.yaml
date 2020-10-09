@@ -1,0 +1,36 @@
+apiVersion: helm.fluxcd.io/v1
+kind: HelmRelease
+metadata:
+  name: monitoring
+  namespace: monitoring
+  annotations:
+    fluxcd.io/automated: "true"
+spec:
+  releaseName: monitoring
+  chart:
+    repository: https://prometheus-community.github.io/helm-charts
+    name: kube-prometheus-stack
+    version: 9.4.10
+  values:
+    alter: "true"
+    prometheus:
+      podDisruptionBudget:
+        enabled: true
+    grafana:
+      service:
+        type: LoadBalancer
+      persistence:
+        storageClassName: rook-ceph-block
+        enabled: true
+      additionalDataSources:
+      - name: loki
+        access: proxy
+        orgId: 1
+        type: loki
+        url: http://loki.logging:3100
+        version: 1
+
+
+
+
+      

@@ -1,0 +1,8 @@
+apiVersion: objectbucket.io/v1alpha1
+kind: ObjectBucketClaim
+metadata:
+  name: sfxworks-bucket
+  namespace: sfxworks
+spec:
+  generateBucketName: sfxworks
+  storageClassName: rook-ceph-bucket

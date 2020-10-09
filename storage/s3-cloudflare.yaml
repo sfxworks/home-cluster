@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: s3-cloudflare
+  name: s3-cloudflare
+  namespace: rook-ceph
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: s3-cloudflare
+  template:
+    metadata:
+      labels:
+        app: s3-cloudflare
+    spec:
+      containers:
+      - name: tunnel
+        image: docker.io/cloudflare/cloudflared:2020.7.1
+        imagePullPolicy: Always
+        command: ["cloudflared", "tunnel"]
+        args:
+        - --url=http://rook-ceph-rgw-my-store:80
+        - --hostname=rgw.sfxworks.net
+        - --origincert=/etc/cloudflared/cert.pem
+        - --no-autoupdate
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          limits:
+            cpu: 100m
+            memory: 200Mi
+          requests:
+            cpu: 100m
+            memory: 200Mi
+        volumeMounts:
+        - mountPath: /etc/cloudflared
+          name: tunnel-secret
+          readOnly: true
+      terminationGracePeriodSeconds: 60
+      volumes:
+      - name: tunnel-secret
+        secret:
+          secretName: sfxworks.net

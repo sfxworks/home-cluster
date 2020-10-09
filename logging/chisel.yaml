@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chisel
+  namespace: logging
+  labels:
+    app: chisel 
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chisel 
+  template:
+    metadata:
+      labels:
+        app: chisel 
+    spec:
+      containers:
+      - name: chisel
+        args:
+        - client
+        - -v
+        - https://chisel.mcserverhosting.red
+        - R:loki:3100
+        resources:
+          requests:
+            memory: 100M
+            cpu: 500m
+          limits:
+            memory: 100M
+            cpu: "1"
+        image: jpillora/chisel

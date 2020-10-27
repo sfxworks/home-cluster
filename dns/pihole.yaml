@@ -29,3 +29,15 @@ spec:
       annotations:
         metallb.universe.tf/allow-shared-ip: pihole-svc
       type: LoadBalancer
+    probes:
+      # probes.liveness -- Configure the healthcheck for the ingress controller
+      liveness:
+        enabled: true
+        initialDelaySeconds: 60
+        failureThreshold: 10
+        timeoutSeconds: 5
+      readiness:
+        enabled: true
+        initialDelaySeconds: 60
+        failureThreshold: 480
+        timeoutSeconds: 5

@@ -21,7 +21,7 @@ spec:
         imagePullPolicy: Always
         command: ["cloudflared", "tunnel"]
         args:
-        - --url=http://10.96.190.242:80
+        - --url=http://10.96.190.242:80/sfxworks-7dfa7fa6-0f8a-4c09-b112-26c66c3e52e7
         - --hostname=rgw.sfxworks.net
         - --origincert=/etc/cloudflared/cert.pem
         - --no-autoupdate

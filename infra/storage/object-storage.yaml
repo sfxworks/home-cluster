@@ -76,11 +76,11 @@ spec:
     resources:
     # The requests and limits set here, allow the object store gateway Pod(s) to use half of one CPU core and 1 gigabyte of memory
       limits:
-        cpu: 1
-        memory: 1Gi
+        cpu: 2
+        memory: 3Gi
       requests:
-        cpu: 1
-        memory: 1Gi
+        cpu: 2
+        memory: 3Gi
     # priorityClassName: my-priority-class
   #zone:
     #name: zone-a
